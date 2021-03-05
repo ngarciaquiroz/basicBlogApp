@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = Model.Title;
+}
+@using basicBlogAppModels;
+@model basicBlogAppModels.Post;
+<div>
+
+    <h2 class="page-header">@Model.Title</h2>
+    <span>@Html.Raw(Model.Content)</span>
+    <h3>@Model.Author</h3>
+    <br />
+    <span><b>Last Modified:</b> @(Model.PublishDate.HasValue ? Model.PublishDate.Value.ToShortDateString() : String.Empty)</span><br />
+    <span><b>Approved By:</b> @Model.Approver - @(Model.ApprovalDate.HasValue ? Model.ApprovalDate.Value.ToShortDateString() : String.Empty)</span>
+</div>
+<div>
+    <h2>Comments</h2>
+    <ul>
+        @if (Model.Comments != null && Model.Comments.Any())
+        {
+            foreach (var comment in Model.Comments)
+            {
+                <li>
+                    <span>@comment.Description</span>
+                    <h3>@comment.Author - @comment.Email</h3>
+                </li>
+            }
+        }
+    </ul>
+
+</div>
+@if (Model.WorkflowStates == States.Publish)
+{
+    <div class="row">
+        <div class="col-md-6">
+            @Html.ActionLink("Add Comment", "Add", "Comment", new { Id = Model.ID }, new { @class = "btn btn-warning" })
+        </div>
+    </div>
+}

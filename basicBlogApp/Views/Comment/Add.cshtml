@@ -1,0 +1,33 @@
+﻿@model basicBlogAppModels.Comment
+@{
+    ViewBag.Title = "Add Comment";
+}
+<h2 class="page-header">Comment</h2>
+<div class=" container">
+    <div class="row">
+        <h1>@Model.ID</h1>
+        <div class="col-md-12">
+            @using (Html.BeginForm("Add", "Comment"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Author, "Author")
+                    @Html.TextBoxFor(a => a.Author, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(a => a.Author)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Description, "Description")
+                    @Html.TextBoxFor(a => a.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(a => a.Description)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Email, "Email")
+                    @Html.TextBoxFor(a => a.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(a => a.Email)
+                </div>
+                <input id="PostId" name="PostId" type="hidden" value="@Model.PostId">
+                <input id="ID" name="ID" type="hidden" value="@Model.ID">
+                <button value="Save" class="btn btn-primary">Save</button>
+            }
+        </div>
+    </div>
+</div>

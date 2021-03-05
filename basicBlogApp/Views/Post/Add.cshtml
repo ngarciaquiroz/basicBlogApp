@@ -1,0 +1,70 @@
+﻿@using basicBlogAppModels;
+@model basicBlogApp.Models.PostViewModel
+@{
+    ViewBag.Title = "Add Post";
+    var disable = ViewBag.Role == UserRoles.Editor ? "disabled" : null;
+}
+@if (Model != null)
+{
+    <h2 class="page-header">Edit Post:@Model.Title</h2>}
+else
+{
+    <h2 class="page-header">New Post</h2>
+}
+<div class=" container">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Add", "Post"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Author, "Author")
+                    @Html.TextBoxFor(a => a.Author, new { @class = "form-control " })
+                    @Html.ValidationMessageFor(a => a.Author)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Title, "Title")
+                    @Html.TextBoxFor(a => a.Title, new { @class = "form-control " })
+                    @Html.ValidationMessageFor(a => a.Title)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Content, "Content")
+                    @Html.TextAreaFor(a => a.Content, new { @class = "form-control textarea-editor", rows = "20", cols = "100" })
+                    @Html.ValidationMessageFor(a => a.Content)
+                </div>
+                if (Model != null)
+                {
+                    @Html.Hidden("ID", Model.ID);
+                }
+                switch (ViewBag.Role)
+                {
+                    case UserRoles.Writer:
+                        <div class="btn-group">
+                            <input type="submit" value="Save" name="save" class="btn btn-warning" />
+                        </div>
+                        <div class="btn-group">
+                            <input type="submit" value="Submit for Approval" name="submitApproval" class="btn btn-success" />
+                        </div>
+                        break;
+                    case UserRoles.Editor:
+                        <div class="form-group">
+                            @Html.LabelFor(a => a.Approver, "Approver")
+                            @Html.TextBoxFor(a => a.Approver)
+                            @Html.ValidationMessageFor(a => a.Approver)
+                        </div>
+                        <div class="btn-group">
+                            <input type="submit" value="Reject" name="save" class="btn btn-danger" />
+                        </div>
+                        <div class="btn-group">
+                            <input type="submit" value="Approve" name="approve" class="btn btn-success" />
+                        </div>
+                        break;
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+}  

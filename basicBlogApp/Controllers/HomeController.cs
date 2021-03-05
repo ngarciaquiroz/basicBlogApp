@@ -1,37 +1,72 @@
-﻿using basicBlogApp.Models;
+﻿using basicBlogAppBusiness.Interfaces;
+using basicBlogAppModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace basicBlogApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IPostsLogic _postsLogic;
+        const string COOKIE_NAME = "RoleCookie";
+
+        public HomeController(IPostsLogic postsLogic)
         {
-            _logger = logger;
+
+            _postsLogic = postsLogic;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var posts = _postsLogic.AllPostsByState(a => a.WorkflowStates == States.Publish);
+            return View(posts);
         }
 
-        public IActionResult Privacy()
+
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        /// <summary>
+        /// Mocks Login process adding a cookie that will be used to
+        /// check the user role
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Login(string username)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            username = username.ToLower();
+
+            switch (username)
+            {
+                case "writer":
+                    Response.Cookies.Append(COOKIE_NAME, UserRoles.Writer.ToString());
+                    break;
+                case "editor":
+                    Response.Cookies.Append(COOKIE_NAME, UserRoles.Editor.ToString());
+
+                    break;
+                default:
+                    ViewBag.Error = "Wrong Credentials!!!";
+                    return RedirectToAction("Login");
+
+            }
+            return RedirectToAction("Manage", "Post");
+
         }
+
+        /// <summary>
+        /// Removes the role cookie
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete(COOKIE_NAME);
+            return RedirectToAction("Login");
+        }
+
     }
 }

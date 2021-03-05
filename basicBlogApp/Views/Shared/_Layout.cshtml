@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - basicBlogApp</title>
+    <title>@ViewData["Title"] - BlogApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -21,9 +21,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        @if (Context.Request != null && Context.Request.Cookies["RoleCookie"] != null)
+                        {
+
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Manage">Manage</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                        }
+                        else
+                        {
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+
+                        }
                     </ul>
                 </div>
             </div>
@@ -37,7 +45,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - basicBlogApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - BlogApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

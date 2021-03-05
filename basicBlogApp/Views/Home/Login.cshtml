@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+<h2 class="page-header">Login</h2>
+<div class=" container">
+    <div class="row">
+        <div class="col-md-12">
+            @if (ViewBag.Error != null)
+            {
+                <span class="error text-danger">@ViewBag.Error</span>
+            }
+            @using (Html.BeginForm("Login", "Home"))
+            {
+                <div class="form-group">
+                    <input type="text" placeholder="Username" name="username" />
+                </div>
+                <input type="submit" value="Login" name="approve" class="btn btn-primary" />
+            }
+        </div>
+    </div>
+</div>

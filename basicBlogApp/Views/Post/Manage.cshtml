@@ -1,0 +1,73 @@
+﻿@using  basicBlogAppModels;
+@{
+    ViewBag.Title = "Manage Posts";
+}
+@model IEnumerable<basicBlogAppModels.Post>
+<h2 class="page-header">Manage Posts</h2>
+@if (ViewBag.Role == UserRoles.Writer)
+{
+    <div class="row">
+        <div class="col-md-6">
+            @Html.ActionLink("Add Post", "Add", "Post", null, new { @class = "btn btn-warning" })
+        </div>
+    </div>
+}
+@if (Model != null && Model.Any())
+{
+    var posts = ViewBag.Role == UserRoles.Writer ? Model.Where(a => a.WorkflowStates == States.Draft) : Model;
+    foreach (var post in posts)
+    {
+        <div>
+            <h3>@Html.ActionLink(post.Title, "Single", "Post", new { id = post.ID }, null)</h3>
+            <span>@Html.Raw(post.Content)</span>
+            <h4>@post.Author</h4>
+            <div>
+                @{
+                    switch (ViewBag.Role)
+                    {
+                        case UserRoles.Writer:
+                            <div class="btn-group">
+                                @Html.ActionLink("Edit", "Edit", "Post", new { id = post.ID }, new { @class = "btn btn-info" })
+
+                            </div>
+                            <div class="btn-group">
+                                @Html.ActionLink("Delete", "Delete", "Post", new { id = post.ID }, new { @class = "btn btn-danger" })
+                            </div>
+                            break;
+                        case UserRoles.Editor:
+
+                            if (post.WorkflowStates == States.Publish)
+                            {
+                                <div class="btn-group">
+                                    @Html.ActionLink("Delete", "Delete", "Post", new { id = post.ID }, new { @class = "btn btn-danger" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="btn-group">
+                                    @Html.ActionLink("Review", "Edit", "Post", new { id = post.ID }, new { @class = "btn btn-success" })
+                                </div>
+                            }
+                            break;
+                    }
+                }
+
+
+            </div>
+        </div>
+
+    }
+    if (ViewBag.Role == UserRoles.Writer)
+    { <h1>Pending For Approval</h1>
+        <div>
+            @await Html.PartialAsync("~/Views/Post/index.cshtml",
+                 Model.Where(a => a.WorkflowStates == States.PendingApproval))
+        </div>
+    }
+}
+else
+{
+    <h2 class="label label-info">
+        Nothing to Manage.
+    </h2>
+}
