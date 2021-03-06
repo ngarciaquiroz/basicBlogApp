@@ -20,3 +20,7 @@ To test the endpoints i added swagger https://basicblogapp.azurewebsites.net/swa
 
 **Deployment**
 Was done using webDEploy directly from Visual Studio 2019
+
+**Development time**
+
+Around 3 hours main functionality and small tweaks another hour
