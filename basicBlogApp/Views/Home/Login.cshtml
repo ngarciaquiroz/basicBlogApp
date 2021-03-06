@@ -12,7 +12,12 @@
             @using (Html.BeginForm("Login", "Home"))
             {
                 <div class="form-group">
-                    <input type="text" placeholder="Username" name="username" />
+                    <label for="cars">Choose a Role:</label>
+
+                    <select name="username" id="username">
+                        <option value="editor">Editor</option>
+                        <option value="writer">Writer</option>
+                    </select>
                 </div>
                 <input type="submit" value="Login" name="approve" class="btn btn-primary" />
             }

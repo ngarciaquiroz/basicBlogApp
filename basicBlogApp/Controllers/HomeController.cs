@@ -65,7 +65,7 @@ namespace basicBlogApp.Controllers
         public IActionResult Logout()
         {
             Response.Cookies.Delete(COOKIE_NAME);
-            return RedirectToAction("Login");
+            return RedirectToAction("Index");
         }
 
     }

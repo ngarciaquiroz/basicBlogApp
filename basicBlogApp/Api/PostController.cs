@@ -36,12 +36,13 @@ namespace BlogApp.Api
         /// <returns></returns>
 
         [HttpPost("ChangePostState")]
-        public IActionResult ChangePostState(int postId, string action)
+        public IActionResult ChangePostState(int postId, string action, string approver)
         {
             var post = _postsLogic.GetPost(postId);
             if(post.WorkflowStates == States.PendingApproval && actions.Contains(action))
             {
                 post.WorkflowStates = action.Equals("approve") ? States.Publish : States.Draft;
+                post.Approver = approver;
                 _postsLogic.AddOrEdit(post);
                 return Ok(post);
             }
