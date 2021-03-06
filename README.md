@@ -24,3 +24,7 @@ Was done using webDEploy directly from Visual Studio 2019
 **Development time**
 
 Around 3 hours main functionality and small tweaks another hour
+
+**Runing locally**
+
+Just execute the Migrations first to create the DB and then run the app
