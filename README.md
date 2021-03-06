@@ -6,13 +6,13 @@ When you get to the site on the Index page you will be able to see all the publi
 
 On the navigation you can see a Login option, there you can use either **writer** or **editor** the two available roles for the site, this will add a new option on the navigation Manage depending on the role you will see different things.
 
-Writer:
+**Writer:**
 
 Will get the Add Post button and a two lists: The first one for the posts on Draft (Saved but not on ready to publish) this list will display the content of the post and a Edit or Delete button. On the Edit page you can save your progess or submit for approval the post. (for the Rich text editor use images available online)
 
 The second will include the posts that the writer already moved to pending for approval, you click on the title to see them but that's it.
 
-Editor:
+**Editor:**
 
 Is just a list with a review button this will take you to Edit view there you can either Publish or Reject the Post.
 
