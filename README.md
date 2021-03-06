@@ -17,3 +17,6 @@ The second will include the posts that the writer already moved to pending for a
 Is just a list with a review button this will take you to Edit view there you can either Publish or Reject the Post.
 
 To test the endpoints i added swagger https://basicblogapp.azurewebsites.net/swagger/index.html
+
+**Deployment**
+Was done using webDEploy directly from Visual Studio 2019
