@@ -2,6 +2,7 @@
 using basicBlogAppBusiness.Interfaces;
 using basicBlogAppModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 
@@ -43,6 +44,7 @@ namespace BlogApp.Api
             {
                 post.WorkflowStates = action.Equals("approve") ? States.Publish : States.Draft;
                 post.Approver = approver;
+                post.ApprovalDate = DateTime.Now;
                 _postsLogic.AddOrEdit(post);
                 return Ok(post);
             }

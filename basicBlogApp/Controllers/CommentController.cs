@@ -32,7 +32,7 @@ namespace basicBlogApp.Controllers
             }
             return View(comment);
         }
-        [HttpGet("{id}")]
+     
         public ActionResult Add(int id)
         {
             var post = _postLogic.GetPost(id);
