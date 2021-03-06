@@ -21,7 +21,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (Context.Request != null && Context.Request.Cookies["RoleCookie"] != null)
+                        @if (Context.Request != null && Context.Request.Cookies[Constants.COOKIE_NAME] != null)
                         {
 
                             <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Manage">Manage</a>

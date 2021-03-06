@@ -9,7 +9,7 @@ namespace basicBlogApp.Controllers
     {
 
         private readonly IPostsLogic _postsLogic;
-        const string COOKIE_NAME = "RoleCookie";
+       
 
         public HomeController(IPostsLogic postsLogic)
         {
@@ -42,11 +42,11 @@ namespace basicBlogApp.Controllers
 
             switch (username)
             {
-                case "writer":
-                    Response.Cookies.Append(COOKIE_NAME, UserRoles.Writer.ToString());
+                case Constants.WRITER_ROLE:
+                    Response.Cookies.Append(Constants.COOKIE_NAME, UserRoles.Writer.ToString());
                     break;
-                case "editor":
-                    Response.Cookies.Append(COOKIE_NAME, UserRoles.Editor.ToString());
+                case Constants.EDITOR_ROLE:
+                    Response.Cookies.Append(Constants.COOKIE_NAME, UserRoles.Editor.ToString());
 
                     break;
                 default:
@@ -64,7 +64,7 @@ namespace basicBlogApp.Controllers
         /// <returns></returns>
         public IActionResult Logout()
         {
-            Response.Cookies.Delete(COOKIE_NAME);
+            Response.Cookies.Delete(Constants.COOKIE_NAME);
             return RedirectToAction("Index");
         }
 

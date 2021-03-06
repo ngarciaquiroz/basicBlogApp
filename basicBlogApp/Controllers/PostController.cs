@@ -30,7 +30,7 @@ namespace BlogApp.Controllers
 
         public IActionResult Manage()
         {
-            if (Request != null && Request.Cookies["RoleCookie"] != null)
+            if (Request != null && Request.Cookies[Constants.COOKIE_NAME] != null)
             {
                 var role = GetRoleFromCookie();
                 IEnumerable<Post> posts = new List<Post>();
@@ -122,9 +122,9 @@ namespace BlogApp.Controllers
         private UserRoles GetRoleFromCookie()
         {
 
-            if (Request != null && Request.Cookies["RoleCookie"] != null)
+            if (Request != null && Request.Cookies[Constants.COOKIE_NAME] != null)
             {
-                return Enum.TryParse(Request.Cookies["RoleCookie"], true, out UserRoles role) ? role
+                return Enum.TryParse(Request.Cookies[Constants.COOKIE_NAME], true, out UserRoles role) ? role
                : UserRoles.Anon;
 
             }
