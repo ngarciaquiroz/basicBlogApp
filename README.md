@@ -27,6 +27,6 @@ Around 3 hours main functionality and small tweaks another hour
 
 **Runing locally**
 
-Just execute the Migrations first to create the DB and then run the app
+Just execute the Migrations first to create the DB and then run the app (SQL server Express required)
 - dotnet ef database update
 - dotnet run
